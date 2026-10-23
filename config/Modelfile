@@ -1,0 +1,23 @@
+# T.A.R.O. - Ollama Modelfile
+# Creates the `taro` model tag with optimised defaults for 6 GB VRAM.
+# The persona and rules are NOT here - they are injected at runtime by
+# core/prompt_builder.py from config/persona.md so they can change
+# without rebuilding the model.
+#
+# Usage:
+#   ollama create taro -f config/Modelfile
+#   ollama run taro "Reply with the single word OK."
+
+FROM richardyoung/qwen3-8b-abliterated:Q4_K_M
+
+PARAMETER num_ctx 4096
+PARAMETER num_predict 1024
+PARAMETER temperature 0.3
+PARAMETER top_p 0.9
+
+# keep_alive: unload after 10 minutes idle.
+# Do not put PARAMETER keep_alive here - it is set per-request by the client.
+
+# NOTE: `think` is NOT a Modelfile parameter.
+# It is sent per request in the chat API body as {"think": false}.
+# Reasoning blocks are stripped before display by core/orchestrator.py.

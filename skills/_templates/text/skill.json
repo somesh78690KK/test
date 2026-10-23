@@ -1,0 +1,22 @@
+{
+  "name": "text_template",
+  "version": "1.0.0",
+  "description": "Template for text processing, formatting, and analysis.",
+  "category": "core",
+  "risk": "SAFE",
+  "permissions": [],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "text": {"type": "string", "description": "Input text to process"}
+    },
+    "required": ["text"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "status": {"type": "string"},
+      "result": {"type": "string"}
+    }
+  }
+}

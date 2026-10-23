@@ -1,0 +1,22 @@
+{
+  "name": "file_template",
+  "version": "1.0.0",
+  "description": "Template for file operations and transformations.",
+  "category": "files",
+  "risk": "LOW",
+  "permissions": ["files.read", "files.write"],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "filepath": {"type": "string", "description": "Target file path"}
+    },
+    "required": ["filepath"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "status": {"type": "string"},
+      "output": {"type": "string"}
+    }
+  }
+}

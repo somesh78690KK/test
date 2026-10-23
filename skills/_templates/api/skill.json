@@ -1,0 +1,22 @@
+{
+  "name": "api_template",
+  "version": "1.0.0",
+  "description": "Template for HTTP API calls and structured JSON response parsing.",
+  "category": "web",
+  "risk": "LOW",
+  "permissions": ["web.request"],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "endpoint": {"type": "string", "description": "Target API endpoint URL"}
+    },
+    "required": ["endpoint"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "status": {"type": "string"},
+      "data": {"type": "object"}
+    }
+  }
+}

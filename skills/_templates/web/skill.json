@@ -1,0 +1,22 @@
+{
+  "name": "web_template",
+  "version": "1.0.0",
+  "description": "Template for web extraction and scraping operations.",
+  "category": "browser",
+  "risk": "LOW",
+  "permissions": ["browser.read"],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "url": {"type": "string", "description": "Target webpage URL"}
+    },
+    "required": ["url"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "status": {"type": "string"},
+      "title": {"type": "string"}
+    }
+  }
+}

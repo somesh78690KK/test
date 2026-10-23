@@ -1,0 +1,19 @@
+{
+  "default_policy": "allow",
+  "restricted_capabilities": [],
+  "user_confirmation_required": [
+    "system.shell",
+    "file.delete",
+    "file.write",
+    "process.terminate",
+    "system.shutdown"
+  ],
+  "auto_approve_safe": [
+    "file.read",
+    "file.list",
+    "app.launch",
+    "app.close",
+    "web.search",
+    "web.fetch"
+  ]
+}

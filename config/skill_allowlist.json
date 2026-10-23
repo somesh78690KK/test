@@ -1,0 +1,17 @@
+{
+  "_comment": "Modules a Forge-generated skill may import. Edit this file yourself to add libraries. T.A.R.O. cannot add to this list.",
+  "allowed_stdlib": [
+    "pathlib", "json", "csv", "datetime", "re", "math", "statistics",
+    "collections", "itertools", "functools", "operator", "string",
+    "textwrap", "unicodedata", "hashlib", "base64", "struct",
+    "io", "os.path", "shutil", "tempfile", "glob", "fnmatch",
+    "time", "calendar", "decimal", "fractions", "random",
+    "logging", "warnings", "copy", "typing", "dataclasses",
+    "enum", "abc", "contextlib", "threading", "queue"
+  ],
+  "allowed_third_party": [
+    "openpyxl", "docx", "pptx", "PIL", "pillow",
+    "requests", "httpx", "json5"
+  ],
+  "_note": "subprocess with shell=True, eval, exec, ctypes, os.system are ALWAYS blocked regardless of this list."
+}

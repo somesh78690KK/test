@@ -1,0 +1,22 @@
+{
+  "name": "excel_template",
+  "version": "1.0.0",
+  "description": "Template for Excel workbook automation and reporting.",
+  "category": "office",
+  "risk": "LOW",
+  "permissions": ["files.read", "files.write"],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "filepath": {"type": "string", "description": "Path to Excel file"}
+    },
+    "required": ["filepath"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "status": {"type": "string"},
+      "summary": {"type": "string"}
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "system_info",
+  "version": "1.0.0",
+  "description": "Report CPU, RAM, OS, and storage hardware diagnostics.",
+  "category": "system",
+  "risk": "SAFE",
+  "permissions": ["system.read"],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "detailed": {"type": "boolean", "description": "Include disk partitions and memory breakdown"}
+    }
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "platform": {"type": "string"},
+      "cpu_percent": {"type": "number"},
+      "ram_percent": {"type": "number"}
+    }
+  }
+}

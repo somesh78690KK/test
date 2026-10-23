@@ -1,0 +1,183 @@
+# T.A.R.O. - Default Configuration
+# Version: 1.2.0
+# Do not put secrets here. Use .env for API keys.
+# Machine overrides go in config.local.yaml (not committed).
+
+# --- Models ---
+model:
+  # Primary chat/tool model (user-specified: richardyoung/qwen3-8b-abliterated:Q4_K_M)
+  chat_model: "richardyoung/qwen3-8b-abliterated:Q4_K_M"
+  # Backup model when GPU busy or user requests switch (nemotron-3-nano:4b)
+  backup_model: "nemotron-3-nano:4b"
+  # Vision model - loaded on demand, unloaded after 30s
+  vision_model: "moondream:latest"
+  # Ollama host
+  ollama_host: "http://127.0.0.1:11434"
+  # Context window - reduced to 8k for 6GB VRAM optimization
+  num_ctx: 8192
+  # Max tokens per response
+  num_predict: 2048
+  # GPU layers - set by benchmark; 'auto' lets Ollama decide
+  num_gpu: auto
+  # Temperature for tool-calling (low = more deterministic)
+  temperature: 0.3
+  top_p: 0.9
+  # Keep model loaded for this long when idle
+  keep_alive: "10m"
+  # Thinking mode OFF by default; sent per-request in API body
+  think: false
+  # How long to wait for vision model to unload after use (seconds)
+  vision_unload_after_s: 30
+  # Minimum free VRAM before reducing num_gpu (GB)
+  vram_low_watermark_gb: 1.0
+  # VRAM ceiling for alerts
+  vram_ceiling_gb: 5.5
+
+# --- Orchestrator ---
+orchestrator:
+  max_steps: 8
+  tool_timeout_s: 20
+  # Number of turns before rolling summarizer runs
+  summary_every_n_turns: 5
+  # Summary token target range
+  summary_min_tokens: 150
+  summary_max_tokens: 250
+
+# --- Prompt budget (tokens) - 8k Context Allocation ---
+prompt_budget:
+  system: 1500
+  tools: 2000
+  profile_and_memory: 1000
+  summary: 1000
+  recent_turns: 1500
+  response_reserve: 1000
+
+# --- Safety ---
+safety:
+  # Risk gate defaults - overridden by permissions.json
+  # SAFE and LOW: auto-execute
+  # MEDIUM: yes/no confirmation
+  # HIGH: typed phrase confirmation
+  # CRITICAL: typed phrase confirmation
+  confirmation_timeout_s: 120
+  # Kill switch hotkey
+  kill_hotkey: "ctrl+alt+f12"
+
+# --- Voice ---
+voice:
+  enabled: true
+  wake_word: "taro"
+  wake_word_model: "models/taro_wakeword.onnx"
+  # Push-to-talk always available as fallback
+  push_to_talk_key: "space"
+  # Hands-free mode: automatically detect speech without wake word
+  hands_free: true
+  # STT - Vosk lightweight model (offline, instant startup)
+  stt_engine: "vosk"
+  stt_model_path: "models/vosk-model-small-en-us-0.15"
+  stt_sample_rate: 16000
+  # Max utterance length (seconds)
+  max_utterance_s: 8
+  # Silence to end utterance (seconds) - increased for better endpointing
+  silence_pause_s: 1.0
+  # TTS - pyttsx3 offline (instant, no network dependency)
+  tts_engine: "pyttsx3"
+  tts_voice: null
+  tts_rate: 150
+  # Emotional TTS enabled
+  tts_emotional: true
+
+# --- Vision ---
+vision:
+  # Capture downscale target
+  capture_width: 640
+  capture_height: 360
+  jpeg_quality: 75
+  # Minimum chars for a valid VLM description (anti-hallucination)
+  vlm_min_chars: 20
+  # Titles to never capture (comma-separated substrings, case-insensitive)
+  capture_exclude_titles:
+    - "KeePass"
+    - "1Password"
+    - "Bitwarden"
+    - "Online Banking"
+    - "Credential Manager"
+
+# --- Memory ---
+memory:
+  # SQLite retention (days)
+  conversation_retention_days: 90
+  # ChromaDB: top-k results per query
+  recall_top_k: 4
+  # Minimum similarity score to include a memory result
+  recall_min_similarity: 0.35
+  # Offline embedding model path (bundled in models/)
+  embedding_model_path: "models/all-MiniLM-L6-v2"
+  # Superseded memory items deleted after this many days
+  superseded_retention_days: 30
+  # Recovery folder retention (days)
+  recovery_retention_days: 30
+  # Daily SQLite backup count to keep
+  backup_keep_count: 7
+
+# --- File system ---
+files:
+  # Default writable root for file tools
+  workspace_root: "%USERPROFILE%\\TARO\\workspace"
+  sandbox_root: "%USERPROFILE%\\TARO\\sandbox"
+  # Recovery folder for deleted/overwritten files
+  recovery_root: "data/recovery"
+
+# --- UI ---
+ui:
+  theme: "dark"
+  # Minimum window size
+  min_width: 800
+  min_height: 600
+  recommended_width: 1200
+  recommended_height: 800
+  # Telemetry refresh rate (seconds)
+  telemetry_refresh_s: 1
+
+# --- Services (background, optional) ---
+services:
+  app_monitor: true
+  scheduler: true
+  security_guardian: false
+  notification_guardian: false
+  screen_watcher: false
+
+# --- Cloud (all disabled by default) ---
+cloud:
+  gemini_enabled: false
+  openai_enabled: false
+  groq_enabled: false
+  anthropic_enabled: false
+  # Allow cloud model to draft hard Skill Forge skills
+  forge_cloud_draft: false
+  # Google STT as online fallback (requires explicit consent at runtime)
+  google_stt_enabled: false
+
+# --- Skills ---
+skills:
+  # Skills directory
+  skills_dir: "skills"
+  # Generated skills directory
+  generated_dir: "skills/_generated"
+  # Skill Forge approval mode: ask | trusted-low
+  forge_approval_mode: "ask"
+  # Trial confirmation count for new skills
+  trial_confirmation_count: 3
+
+# --- Logging ---
+logging:
+  level: "INFO"
+  # Rotate log files at this size (MB)
+  rotate_mb: 10
+  # Keep log files for this many days
+  keep_days: 7
+
+# --- Analytics ---
+analytics:
+  enabled: true
+  # Local only - never sent anywhere

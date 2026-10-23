@@ -1,0 +1,23 @@
+{
+  "name": "file_organizer",
+  "version": "1.0.0",
+  "description": "Organize files in a directory into structured subfolders by extension.",
+  "category": "files",
+  "risk": "MEDIUM",
+  "permissions": ["files.read", "files.write"],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "folder": {"type": "string", "description": "Target folder path to organize"},
+      "dry_run": {"type": "boolean", "description": "Preview moves without modifying filesystem"}
+    },
+    "required": ["folder"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "moved_count": {"type": "integer"},
+      "summary": {"type": "string"}
+    }
+  }
+}
